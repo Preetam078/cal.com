@@ -27,8 +27,6 @@ import { trpc } from "@calcom/trpc/react";
 import {
   Avatar,
   Button,
-  BannerAvatar,
-  BannerUploader,
   ConfirmationDialogContent,
   Dialog,
   DialogTrigger,
@@ -90,8 +88,6 @@ const ProfileView = () => {
   const router = useRouter();
   const utils = trpc.useUtils();
   const session = useSession();
-
-  console.log("hello profile View");
 
   useLayoutEffect(() => {
     document.body.focus();
@@ -367,46 +363,6 @@ const TeamProfileForm = ({ team }: TeamProfileFormProps) => {
             />
           </div>
         )}
-        <div className="mb-2 mt-2">
-          <Controller
-            control={form.control}
-            name="banner"
-            render={({ field: { value, onChange } }) => {
-              const showRemoveBannerButton = !!value;
-
-              return (
-                <>
-                  <BannerAvatar
-                    alt={form.getValues("name")}
-                    data-testid="banner-upload-logo"
-                    imageSrc={getPlaceholderAvatar(value, form.getValues("name"))}
-                    size="lg"
-                  />
-                  <div className="mt-4">
-                    <div className="flex gap-2">
-                      <BannerUploader
-                        height={500}
-                        width={1500}
-                        target="banner"
-                        uploadInstruction={t("org_banner_instructions", { height: 500, width: 1500 })}
-                        id="banner-upload"
-                        buttonMsg={t("upload_banner")}
-                        handleAvatarChange={onChange}
-                        imageSrc={getPlaceholderAvatar(value, form.getValues("name"))}
-                        triggerButtonColor={showRemoveBannerButton ? "secondary" : "primary"}
-                      />
-                      {showRemoveBannerButton && (
-                        <Button color="destructive" onClick={() => onChange(null)}>
-                          {t("remove")}
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </>
-              );
-            }}
-          />
-        </div>
 
         <Controller
           control={form.control}
